@@ -20,13 +20,17 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { ConvertUIComponent } from './convert-ui/convert-ui.component';
 import { HistoryComponent } from './history/history.component';
 import { FavoritesComponent } from './favorites/favorites.component';
-
+import { ConvertFormComponent } from './convert-form/convert-form.component';
+import { SolveFormComponent } from './solve-form/solve-form.component';
+ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
     ConvertUIComponent,
     HistoryComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    ConvertFormComponent,
+    SolveFormComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,9 @@ import { FavoritesComponent } from './favorites/favorites.component';
     MdbScrollspyModule,
     MdbTabsModule,
     MdbTooltipModule,
-    MdbValidationModule
+    MdbValidationModule,
+    ReactiveFormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-convert-form',
   templateUrl: './convert-form.component.html',
-  styleUrls: ['./convert-form.component.css']
+  styleUrls: ['./convert-form.component.scss']
 })
 export class ConvertFormComponent implements OnInit {
   input1 = new FormControl('');

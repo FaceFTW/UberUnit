@@ -1,21 +1,19 @@
 <div class="container">
   <h1>I want to </h1> <!-- Primary -->
-  <div mdbDropdown class="btn-group shadow-0 ">
-    <button type="button" class="btn dropdown-toggle h1" mdbDropdownToggle aria-expanded="false">
-      <span *ngIf="showConvertUI" class="h1">Convert</span>
-      <span *ngIf="showSolveUI" class="h1">Solve</span>
-    </button>
-    <ul mdbDropdownMenu class="dropdown-menu">
-      <li><button class="dropdown-item" (click)="toggleUI('convert')">Convert</button></li>
-      <li><button class="dropdown-item" (click)="toggleUI('solve')" >Solve</button></li>
-    </ul>
-</div>
+  <mat-form-field>
+
+    <mat-select [formControl]="currentUI">
+      <mat-option value="Convert">Convert</mat-option>
+      <mat-option value="Sovle">Solve</mat-option>
+    </mat-select>
+  </mat-form-field>
 
 
-    <div *ngIf="showConvertUI">
-      <app-convert-form></app-convert-form>
-    </div>
-    <div *ngIf="showSolveUI">
-      <app-solve-form></app-solve-form>
-    </div>
+
+  <div *ngIf="showConvertUI">
+    <app-convert-form></app-convert-form>
   </div>
+  <div *ngIf="showSolveUI">
+    <app-solve-form></app-solve-form>
+  </div>
+</div>

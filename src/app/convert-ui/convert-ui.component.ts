@@ -1,26 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ConvertFormComponent } from '../convert-form/convert-form.component';
 import { SolveFormComponent } from '../solve-form/solve-form.component';
 
-export type UIType = 'convert' | 'solve';
+export type UIType = 'Convert' | 'Solve';
 @Component({
   selector: 'app-convert-ui',
   templateUrl: './convert-ui.component.html',
-  styleUrls: ['./convert-ui.component.css']
+  styleUrls: ['./convert-ui.component.scss']
 })
 export class ConvertUIComponent implements OnInit {
-  currentUI : UIType = 'convert';
+  currentUI = new FormControl('Convert');
 
   get showConvertUI(){
-    return this.currentUI === 'convert';
+    return this.currentUI.value =='Convert';
   }
 
   get showSolveUI(){
-    return this.currentUI === 'solve';
-  }
-
-  toggleUI(type:UIType){
-    this.currentUI = type;
+    return this.currentUI.value ==='Solve';
   }
 
   constructor() { }

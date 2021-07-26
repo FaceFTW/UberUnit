@@ -23,6 +23,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { ConvertFormComponent } from './convert-form/convert-form.component';
 import { SolveFormComponent } from './solve-form/solve-form.component';
  import { ReactiveFormsModule } from '@angular/forms';
+ import {MatSelect, MatSelectModule} from '@angular/material/select'
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,8 @@ import { SolveFormComponent } from './solve-form/solve-form.component';
     MdbTabsModule,
     MdbTooltipModule,
     MdbValidationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule,
 
   ],
   providers: [],

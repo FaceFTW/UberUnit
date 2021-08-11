@@ -4,7 +4,13 @@
       <input id="fromVal" type="number" [formControl]="input1" class="">
     </div>
     <div class="col-4">
-      Unit Here
+      <mat-form-field>
+        <mat-select [formControl]="input1Unit">
+          <mat-option *ngFor="let unit of currentUnitList" value="{{unit.id}}">
+            {{unit.val}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
   <div class="row no-gutters">
@@ -23,7 +29,13 @@
       <input id="toVal" type="number" [formControl]="input2" class="">
     </div>
     <div class="col-4">
-      Unit Here
+      <mat-form-field>
+        <mat-select [formControl]="input2Unit">
+          <mat-option *ngFor="let unit of currentUnitList" value="{{unit.id}}">
+            {{unit.val}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
 </div>

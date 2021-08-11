@@ -22,8 +22,10 @@ import { HistoryComponent } from './history/history.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { ConvertFormComponent } from './convert-form/convert-form.component';
 import { SolveFormComponent } from './solve-form/solve-form.component';
- import { ReactiveFormsModule } from '@angular/forms';
- import {MatSelect, MatSelectModule} from '@angular/material/select'
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { KatexModule } from 'ng-katex';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,7 @@ import { SolveFormComponent } from './solve-form/solve-form.component';
     HistoryComponent,
     FavoritesComponent,
     ConvertFormComponent,
-    SolveFormComponent
+    SolveFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,9 +54,9 @@ import { SolveFormComponent } from './solve-form/solve-form.component';
     MdbValidationModule,
     ReactiveFormsModule,
     MatSelectModule,
-
+    KatexModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -17,7 +17,6 @@ import { MdbScrollspyModule } from 'mdb-angular-ui-kit/scrollspy';
 import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
-import { ConvertUIComponent } from './convert-ui/convert-ui.component';
 import { HistoryComponent } from './history/history.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { ConvertFormComponent } from './convert-form/convert-form.component';
@@ -29,7 +28,6 @@ import { KatexModule } from 'ng-katex';
 @NgModule({
   declarations: [
     AppComponent,
-    ConvertUIComponent,
     HistoryComponent,
     FavoritesComponent,
     ConvertFormComponent,

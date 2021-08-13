@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { unitSetList } from './convert-form/convert-form.component';
+
 
 export const FIELD_UNIT_SET = 'unitSet';
 export const FIELD_INPUT_VAL = 'inputVal';
@@ -21,12 +23,9 @@ export interface HistoryStruct {
   latexString: string;
 }
 
-
 @Injectable({
   providedIn: 'root',
 })
-
-
 export class HistoryService {
   constructor(
     private firestore: AngularFirestore,
@@ -34,4 +33,21 @@ export class HistoryService {
   ) {}
 
   //Adds an item to the history
+  public addHistoryItem(hStruct: HistoryStruct): void {
+    //Create the latex if it isn't existent yet
+    if (!hStruct.latexString) {
+      this.makeLatex(hStruct);
+    }
+  }
+
+  //Object mutability is kinda nice here
+  private makeLatex(hStruct: HistoryStruct): void {
+    let outString = '';
+    outString += hStruct.inputVal + ' ';
+    outString += unitSetList[hStruct.unitSet].list[hStruct.inputUnit].latex;
+    outString += ' = ';
+    outString += hStruct.outputVal + ' ';
+    outString += unitSetList[hStruct.unitSet].list[hStruct.outputUnit].latex;
+    hStruct.latexString = outString;
+  }
 }

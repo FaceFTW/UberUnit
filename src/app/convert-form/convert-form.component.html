@@ -1,41 +1,49 @@
 <div class="container">
-  <div class="row py-2">
-    <div class="col-8">
-      <input id="fromVal" type="number" [formControl]="input1" class="">
+  <h1>I want to convert</h1>
+  <mat-form-field class="mx-3 h2">
+    <mat-select [formControl]="currentUnitSet">
+      <mat-option *ngFor='let set of internalUnitSetList' value="{{set.id}}">{{set.val}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+    <div class="row py-2">
+      <div class="col-8">
+        <input id="fromVal" type="number" [formControl]="input1" class="">
+      </div>
+      <div class="col-4">
+        <mat-form-field>
+          <mat-select [formControl]="input1Unit">
+            <mat-option *ngFor="let unit of currentUnitList" value="{{unit.id}}">
+              {{unit.val}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
-    <div class="col-4">
-      <mat-form-field>
-        <mat-select [formControl]="input1Unit">
-          <mat-option *ngFor="let unit of currentUnitList" value="{{unit.id}}">
-            {{unit.val}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="row no-gutters">
+      <div class="col-8 mx-0">
+        <button id="doConvert" type="submit" class="btn btn-primary w-100" (click)="doConvert()"><i
+            class="fas fa-equals fa-2x"></i>
+        </button>
+      </div>
+      <div class="col-4 mx-0">
+        <button id="swapVals" class="btn btn-primary w-100" (click)="swapVals()"><i
+            class="fas fa-exchange-alt fa-2x"></i></button>
+      </div>
+    </div>
+    <div class="row py-2">
+      <div class="col-8">
+        <input id="toVal" type="number" [formControl]="input2" class="">
+      </div>
+      <div class="col-4">
+        <mat-form-field>
+          <mat-select [formControl]="input2Unit">
+            <mat-option *ngFor="let unit of currentUnitList" value="{{unit.id}}">
+              {{unit.val}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
   </div>
-  <div class="row no-gutters">
-    <div class="col-10 mx-0">
-      <button id="doConvert" type="submit" class="btn btn-primary w-100" (click)="doConvert()"><i
-          class="fas fa-equals fa-2x"></i>
-      </button>
-    </div>
-    <div class="col-2 mx-0">
-      <button id="swapVals" class="btn btn-primary w-100" (click)="swapVals()"><i
-          class="fas fa-exchange-alt fa-2x"></i></button>
-    </div>
-  </div>
-  <div class="row py-2">
-    <div class="col-8">
-      <input id="toVal" type="number" [formControl]="input2" class="">
-    </div>
-    <div class="col-4">
-      <mat-form-field>
-        <mat-select [formControl]="input2Unit">
-          <mat-option *ngFor="let unit of currentUnitList" value="{{unit.id}}">
-            {{unit.val}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-</div>
+

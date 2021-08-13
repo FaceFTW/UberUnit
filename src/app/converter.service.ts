@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { unitSetList } from './convert-ui/convert-ui.component';
+import { lengthConvMatrix, unitSetList } from './convert-form/convert-form.component';
 
 export interface ConvResult {
   unitSet: number;
@@ -23,8 +23,8 @@ export class ConverterService {
     outUnit: number
   ): ConvResult {
     //Luckily, we have a nice programmed array for this
-    let convertFactor = unitSetList[0].convMatrix[inUnit][outUnit];
-    let outResult = inVal * convertFactor;
+    let convertFactor = lengthConvMatrix[inUnit][outUnit];
+    let outResult = Number(inVal) * convertFactor;
     return {
       unitSet: 1,
       inputVal: inVal,

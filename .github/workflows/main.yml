@@ -17,26 +17,26 @@ on:
 jobs:
   deploy:
     name: UberUnit Firebase Deploy
-    
+
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Clone Repo
         uses: actions/checkout@master
-       
-      - name: Setup NodeJS environment 
+
+      - name: Setup NodeJS environment
         uses: actions/setup-node@master
         with:
           node-version: '16.6.2'
-          
+
       - name: Install Project Tools/Dependencies
         run: npm install
-      
+
       - name: Invoke Angular Builder
         run: npm run buildProd
-      
+
       - name: Deploy to Firebase
-       uses: w9jds/firebase-action@master
+        uses: w9jds/firebase-action@master
         with:
           args: deploy
         env:

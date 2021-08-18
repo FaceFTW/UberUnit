@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 import { KatexModule } from 'ng-katex';
 
 //Firebase Modules
@@ -24,8 +25,6 @@ import { PERSISTENCE } from '@angular/fire/auth';
 
 //Internal Components
 import { AppComponent } from './app.component';
-import { HistoryComponent } from './history/history.component';
-import { FavoritesComponent } from './favorites/favorites.component';
 import { ConvertFormComponent } from './convert-form/convert-form.component';
 
 //Internal Services
@@ -34,12 +33,7 @@ import { HistoryService } from './services/history.service';
 import { FavoritesService } from './services/favorites.service';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		HistoryComponent,
-		FavoritesComponent,
-		ConvertFormComponent,
-	],
+	declarations: [AppComponent, ConvertFormComponent],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
@@ -51,6 +45,7 @@ import { FavoritesService } from './services/favorites.service';
 		MatToolbarModule,
 		MatIconModule,
 		MatMenuModule,
+		MatButtonModule,
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFireAuthModule,
 		AngularFirestoreModule,

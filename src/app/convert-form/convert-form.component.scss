@@ -14,13 +14,30 @@ input::-webkit-outer-spin-button {
 	margin: 0;
 }
 
-#convertHeader{
+#convertHeader {
 	display: flex;
+	margin: auto;
 }
 
-#convertHeader > h1{
-	display:inline;
+#convertHeader > h1 {
+	display: inline;
 	overflow: hidden;
 	white-space: nowrap;
-	padding-top:38px;
+	padding-top: 38px;
+}
+
+div#largeConvButton,
+div#smallConvButton {
+	height: 48px;
+}
+
+div#largeConvButton > button,
+div#smallConvButton > button {
+	width: 100%;
+	height: 100%;
+	font-size: 48px;
+}
+
+mat-form-field#inputField {
+	width:100%;
 }

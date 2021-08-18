@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
+import {
+	AngularFirestore,
+	AngularFirestoreCollection,
+} from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { unitSetList } from '../convert-form/convert-form.component';
-
+import { AuthService } from './auth.service';
+import firebase from 'firebase/app';
 
 export const FIELD_UNIT_SET = 'unitSet';
 export const FIELD_INPUT_VAL = 'inputVal';
@@ -10,44 +14,44 @@ export const FIELD_INPUT_UNIT = 'inputUnit';
 export const FIELD_OUTPUT_VAL = 'outputVal';
 export const FIELD_OUTPUT_UNIT = 'outputUnit';
 export const FIELD_CREATEDTIME = 'createdTime';
-export const FIELD_LATEX_STRING = 'latexString';
 export const FIELD_UID = 'uid';
 
+const FIRESTORE_COLLECTION = 'convHistory';
 export interface HistoryStruct {
-  id: bigint;
-  unitSet: number;
-  inputUnit: number;
-  inputVal: number;
-  outputUnit: number;
-  outputVal: number;
-  latexString: string;
+	id: string;
+	[FIELD_UID]: string;
+	[FIELD_UNIT_SET]: number;
+	[FIELD_INPUT_VAL]: number;
+	[FIELD_INPUT_UNIT]: number;
+	[FIELD_OUTPUT_VAL]: number;
+	[FIELD_OUTPUT_UNIT]: number;
+	[FIELD_CREATEDTIME]: firebase.firestore.Timestamp;
 }
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: 'root',
 })
 export class HistoryService {
-  constructor(
-    private firestore: AngularFirestore,
-    private auth: AngularFireAuth
-  ) {}
+	private historyCollection: AngularFirestoreCollection<HistoryStruct>;
+	history$: Observable<HistoryStruct[]>;
 
-  //Adds an item to the history
-  public addHistoryItem(hStruct: HistoryStruct): void {
-    //Create the latex if it isn't existent yet
-    // if (!hStruct.latexString) {
-    //   this.makeLatex(hStruct);
-    // }
-  }
+	constructor(private firestore: AngularFirestore, private auth: AuthService) {
+		this.historyCollection = firestore.collection(FIRESTORE_COLLECTION);
+		this.history$ = firestore
+			.collection<HistoryStruct>('convHistory', (ref) =>
+				ref
+					.orderBy(FIELD_CREATEDTIME, 'desc')
+					.where(FIELD_UID, '==', auth.userUid)
+			)
+			.valueChanges();
+	}
 
-  //Object mutability is kinda nice here
-  // private makeLatex(hStruct: HistoryStruct): void {
-  //   let outString = '';
-  //   outString += hStruct.inputVal + ' ';
-  //   outString += unitSetList[hStruct.unitSet].list[hStruct.inputUnit].latex;
-  //   outString += ' = ';
-  //   outString += hStruct.outputVal + ' ';
-  //   outString += unitSetList[hStruct.unitSet].list[hStruct.outputUnit].latex;
-  //   hStruct.latexString = outString;
-  // }
+	//Adds an item to the history
+	public addHistoryItem(hStruct: HistoryStruct): void {
+		this.historyCollection.add(hStruct);
+	}
+
+	public deleteHistoryItem(id: string) {
+		this.firestore.doc<HistoryStruct>(FIRESTORE_COLLECTION + '/' + id).delete();
+	}
 }

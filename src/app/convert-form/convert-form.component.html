@@ -1,54 +1,91 @@
 <div class="container">
-
-	<div id="convertHeader">
-		<h1>I want to convert</h1>
-		<mat-form-field class="mx-3 h2">
-			<mat-select [(ngModel)]="currentUnitSet">
-				<mat-option *ngFor="let set of internalUnitSetList" value="{{ set.id }}">{{ set.val }}</mat-option>
-			</mat-select>
-		</mat-form-field>
-	</div>
-	<div class="row py-2">
-		<div class="col-8">
-			<mat-form-field appearance="fill">
-				<mat-label>Input</mat-label>
-				<input matInput id="fromVal" type="number" step="0.001" [(ngModel)]="input1" />
-			</mat-form-field>
+	<div class="row align-content-center">
+		<div class="col-sm-12 col-xl-6" id="convert">
+			<!--CONVERT SECTION-->
+			<div class="row justify-content-center py-2">
+				<div id="convertHeader">
+					<h1>I want to convert</h1>
+					<mat-form-field class="mx-3 h2">
+						<mat-select [(ngModel)]="currentUnitSet">
+							<mat-option *ngFor="let set of internalUnitSetList" value="{{ set.id }}">{{ set.val }}</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+				<div class="row py-2">
+					<div class="col-8">
+						<mat-form-field appearance="fill" id="inputField">
+							<mat-label>Input</mat-label>
+							<input matInput id="fromVal" type="number" step="0.001" [(ngModel)]="input1" />
+						</mat-form-field>
+					</div>
+					<div class="col-4">
+						<mat-form-field>
+							<mat-select [(ngModel)]="input1Unit">
+								<mat-option *ngFor="let unit of internalUnitSetList[currentUnitSet].list" value="{{ unit.id }}">{{
+									unit.val }}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="row no-gutters">
+					<div class="col-8 mx-0" id="largeConvButton">
+						<button id="doConvert" mat-flat-button color="primary" (click)="doConvert()">
+							<span>=</span>
+						</button>
+					</div>
+					<div class="col-2 mx-0" id="smallConvButton">
+						<button mat-flat-button color="primary" (click)="swapVals()">
+							<mat-icon>swap_horiz</mat-icon>
+						</button>
+					</div>
+					<div class="col-2 mx-0" id="smallConvButton">
+						<button mat-flat-button color="primary" (click)="addFavorite()">
+							<mat-icon>star</mat-icon>
+						</button>
+					</div>
+				</div>
+				<div class="row py-2">
+					<div class="col-8">
+						<!---OUTPUT FIELD-->
+						<mat-form-field appearance="fill" id="inputField">
+							<mat-label>Output</mat-label>
+							<input matInput id="fromVal" type="number" step="0.001" [(ngModel)]="input2" readonly />
+						</mat-form-field>
+					</div>
+					<div class="col-4 katex">
+						<!--OUTPUT UNIT-->
+						<mat-form-field>
+							<mat-select [(ngModel)]="input2Unit" class="katex mathdefault">
+								<mat-option class="katex mathdefault" *ngFor="let unit of internalUnitSetList[currentUnitSet].list"
+									value="{{ unit.id }}">
+									<ng-katex [equation]="unit.latex"></ng-katex>
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="col-4">
-			<mat-form-field>
-				<mat-select [(ngModel)]="input1Unit">
-					<mat-option *ngFor="let unit of internalUnitSetList[currentUnitSet].list" value="{{ unit.id }}">{{ unit.val }}
-					</mat-option>
-				</mat-select>
-			</mat-form-field>
-		</div>
-	</div>
-	<div class="row no-gutters">
-		<div class="col-8 mx-0">
-			<button id="doConvert" type="submit" class="btn btn-primary w-100" (click)="doConvert()">
-				<i class="fas fa-equals fa-2x"></i>
-			</button>
-		</div>
-		<div class="col-4 mx-0">
-			<button id="swapVals" class="btn btn-primary w-100" (click)="swapVals()">
-				<i class="fas fa-exchange-alt fa-2x"></i>
-			</button>
-		</div>
-	</div>
-	<div class="row py-2">
-		<div class="col-8">
-			<input matInput id="toVal" type="number" step="0.001" [(ngModel)]="input2" />
-		</div>
-		<div class="col-4 katex">
-			<mat-form-field>
-				<mat-select [(ngModel)]="input2Unit" class="katex mathdefault">
-					<mat-option class="katex mathdefault" *ngFor="let unit of internalUnitSetList[currentUnitSet].list"
-						value="{{ unit.id }}">
-						<ng-katex [equation]="unit.latex"></ng-katex>
-					</mat-option>
-				</mat-select>
-			</mat-form-field>
+		<div class="col-sm-12 col-xl-6 justify-content-start">
+			<div class="row py-2" id="history">
+				<!--HISTORY SECTION-->
+				<h1>History</h1>
+			</div>
+			<div class="row" id="favorites">
+				<!--FAVORITES SECTION-->
+				<h1>Favorites</h1>
+				<div>
+					<ul>
+						<li *ngFor="let fav of favList$|async; index as i">
+							{{internalUnitSetList[fav.unitSet].val}}:&nbsp;
+							<ng-katex
+								[equation]="internalUnitSetList[fav.unitSet].list[fav.fromUnit].latex + arrowString +  internalUnitSetList[fav.unitSet].list[fav.toUnit].latex">
+							</ng-katex>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

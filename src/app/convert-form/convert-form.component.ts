@@ -1,10 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable,of } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 import {
 	ConverterService,
 	lengthConvMatrix,
 } from '../services/converter.service';
+import {
+	Favorite,
+	FavoritesService,
+	UID_FIELD,
+	UNIT_FROM_FIELD,
+	UNIT_SET_FIELD,
+	UNIT_TO_FIELD,
+} from '../services/favorites.service';
+import { HistoryService, HistoryStruct } from '../services/history.service';
+import firebase from 'firebase/app';
 
 export interface Unit {
 	id: number;
@@ -52,12 +63,37 @@ export class ConvertFormComponent implements OnInit {
 	input2: number = 0;
 	input2Unit: number = 1;
 
+	favoritesList: Favorite[] = [];
+	favList$: Observable<Favorite[]>;
+	historyList: HistoryStruct[] = [];
+
 	//Constant References
 	internalUnitSetList = unitSetList;
+	arrowString = ' \\rightarrow ';
 
-	constructor(private convServ: ConverterService) {}
+	constructor(
+		private convServ: ConverterService,
+		private favServ: FavoritesService,
+		private histServ: HistoryService,
+		private auth: AuthService
+	) {
+		this.favServ.favorites$.subscribe((favList) => {
+			this.favoritesList = favList;
+		});
+		this.favList$ = favServ.favorites$;
 
-	ngOnInit(): void {}
+		this.histServ.history$.subscribe((histList) => {
+			this.historyList = histList;
+		});
+	}
+
+	ngOnInit(): void {
+		this.favServ.getInitialQuery().then((list) => {
+			this.favoritesList = list;
+		});
+
+		this.favList$ = of(this.favoritesList);
+	}
 
 	doConvert() {
 		console.log('doConvert Call');
@@ -78,6 +114,37 @@ export class ConvertFormComponent implements OnInit {
 			this.input2 = convResult.outputVal;
 		}
 	}
-	swapVals() {}
-	addfavorite() {}
+
+	swapVals() {
+		let temp = this.input1;
+		let tempunit = this.input1Unit;
+		this.input1 = this.input2;
+		this.input1Unit = this.input2Unit;
+		this.input2 = temp;
+		this.input2Unit = tempunit;
+	}
+
+	addFavorite() {
+		let favItem: Favorite = {
+			[UID_FIELD]: this.auth.userUid,
+
+			unitSet: this.currentUnitSet,
+			fromUnit: this.input1Unit,
+			toUnit: this.input2Unit,
+			createdDate: new firebase.firestore.Timestamp(+new Date() / 1000, 0),
+		};
+		this.favServ.addFavorite(favItem);
+	}
+
+	//Favorites Functionality
+
+	invokeDelete(id: string) {
+		this.favServ.deleteFavorite(id);
+	}
+
+	changetoFavorite(fav: Favorite) {
+		this.currentUnitSet = fav[UNIT_SET_FIELD];
+		this.input1Unit = fav[UNIT_FROM_FIELD];
+		this.input2Unit = fav[UNIT_TO_FIELD];
+	}
 }

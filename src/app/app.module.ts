@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon'
 import { KatexModule } from 'ng-katex';
 
 //NgModule Config Imports
@@ -38,7 +40,9 @@ import { FavoritesService } from './services/favorites.service';
 		MatSelectModule,
 		KatexModule,
 		MatInputModule,
-		FormsModule
+		FormsModule,
+		MatToolbarModule,
+		MatIconModule
 	],
 	providers: [],
 	bootstrap: [AppComponent],

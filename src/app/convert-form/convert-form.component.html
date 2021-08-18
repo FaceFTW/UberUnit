@@ -1,15 +1,16 @@
 <div class="container">
 
-	<h1>I want to convert</h1>
-	<mat-form-field class="mx-3 h2">
-		<mat-select [(ngModel)]="currentUnitSet">
-			<mat-option *ngFor="let set of internalUnitSetList" value="{{ set.id }}">{{ set.val }}</mat-option>
-		</mat-select>
-	</mat-form-field>
-
+	<div id="convertHeader">
+		<h1>I want to convert</h1>
+		<mat-form-field class="mx-3 h2">
+			<mat-select [(ngModel)]="currentUnitSet">
+				<mat-option *ngFor="let set of internalUnitSetList" value="{{ set.id }}">{{ set.val }}</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
 	<div class="row py-2">
 		<div class="col-8">
-			<mat-form-field>
+			<mat-form-field appearance="fill">
 				<mat-label>Input</mat-label>
 				<input matInput id="fromVal" type="number" step="0.001" [(ngModel)]="input1" />
 			</mat-form-field>
@@ -42,7 +43,9 @@
 		<div class="col-4 katex">
 			<mat-form-field>
 				<mat-select [(ngModel)]="input2Unit" class="katex mathdefault">
-					<mat-option class="katex mathdefault" *ngFor="let unit of internalUnitSetList[currentUnitSet].list" value="{{ unit.id }}"><ng-katex [equation]="unit.latex"></ng-katex>
+					<mat-option class="katex mathdefault" *ngFor="let unit of internalUnitSetList[currentUnitSet].list"
+						value="{{ unit.id }}">
+						<ng-katex [equation]="unit.latex"></ng-katex>
 					</mat-option>
 				</mat-select>
 			</mat-form-field>

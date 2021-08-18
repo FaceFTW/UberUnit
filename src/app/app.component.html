@@ -1,22 +1,34 @@
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a href="/src/index.html" class="navbar-brand">UberUnit</a>
-  </div>
-</nav>
+<mat-toolbar color="primary">
+	<mat-toolbar-row>
+		<span>My App</span>
+		<span class="example-spacer"></span>
+		<button mat-icon-button class="example-icon" color="" aria-label="Example icon-button with menu icon">
+			<mat-icon>menu</mat-icon>
+		</button>
+	</mat-toolbar-row>
+</mat-toolbar>
+
+<mat-menu #authMenu="matMenu" x-position="before">
+	<button mat-menu-item *ngIf="getIsAnon()" (click)="auth.doSignInStandardOAuth()">
+		<mat-icon>login</mat-icon>&nbsp;Sign In with Google
+	</button>
+	<button mat-menu-item (click)="auth.doLogout()"><mat-icon></mat-icon>Sign Out/New Anonymous Account</button>
+</mat-menu>
+
 <div class="container">
-  <div class="row align-content-center">
-    <div class="col-sm-12 col-lg-6" id="convert">
-      <div class="row justify-content-center">
-        <app-convert-form></app-convert-form>
-      </div>
-    </div>
-    <div class="col-sm-12 col-lg-6 justify-content-start">
-      <div class="row">
-        <app-history></app-history>
-      </div>
-      <div class="row">
-        <app-favorites></app-favorites>
-      </div>
-    </div>
-  </div>
+	<div class="row align-content-center">
+		<div class="col-sm-12 col-lg-6" id="convert">
+			<div class="row justify-content-center py-2">
+				<app-convert-form></app-convert-form>
+			</div>
+		</div>
+		<div class="col-sm-12 col-lg-6 justify-content-start">
+			<div class="row py-2">
+				<app-history></app-history>
+			</div>
+			<div class="row">
+				<app-favorites></app-favorites>
+			</div>
+		</div>
+	</div>
 </div>

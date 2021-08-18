@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "uberunit-7c04b"
+  },
+  "targets": {
+    "uberunit-7c04b": {
+      "hosting": {
+        "UberUnit-Code": [
+          "uberunit-7c04b"
+        ]
+      }
+    }
   }
 }

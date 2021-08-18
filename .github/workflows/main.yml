@@ -1,0 +1,43 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Firebase Deploy CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy:
+    name: UberUnit Firebase Deploy
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Clone Repo
+        uses: actions/checkout@master
+       
+      - name: Setup NodeJS environment 
+        uses: actions/setup-node@master
+        with:
+          node-version: '16.6.2'
+          
+      - name: Install Project Tools/Dependencies
+        run: npm install
+      
+      - name: Invoke Angular Builder
+        run: npm run buildProd
+      
+      - name: Deploy to Firebase
+       uses: w9jds/firebase-action@master
+        with:
+          args: deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_UBERUNIT_7C04B }}

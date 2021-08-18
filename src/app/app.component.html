@@ -9,10 +9,10 @@
 </mat-toolbar>
 
 <mat-menu #authMenu="matMenu" x-position="before">
-	<button mat-menu-item *ngIf="getIsAnon()" (click)="auth.doSignInStandardOAuth()">
+	<button mat-menu-item *ngIf="getIsAnon()" (click)="doOAuthSignIn()">
 		<mat-icon>login</mat-icon>&nbsp;Sign In with Google
 	</button>
-	<button mat-menu-item (click)="auth.doLogout()"><mat-icon></mat-icon>Sign Out/New Anonymous Account</button>
+	<button mat-menu-item (click)="doLogout()"><mat-icon></mat-icon>Sign Out/New Anonymous Account</button>
 </mat-menu>
 
 <div class="container">

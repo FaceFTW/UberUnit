@@ -23,7 +23,7 @@ export class AuthService {
 
 	// doSignInLinkOAuth() {
 	// 	if (this.isAnon) {
-	// 		this.fireauth;
+	// 		firebase.auth.;
 	// 	}
 	// }
 

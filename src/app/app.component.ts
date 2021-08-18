@@ -20,12 +20,19 @@ export class AppComponent {
 	}
 
 	//encapsulated getters for the authservices
-	getIsAuth(){
+	getIsAuth() {
 		return this.auth.isAuth;
 	}
 
-	getisAnon(){
-		return this.auth.isAnon
+	getIsAnon() {
+		return this.auth.isAnon;
 	}
 
+	doOAuthSignIn() {
+		this.auth.doSignInStandardOAuth();
+	}
+
+	doLogout() {
+		this.auth.doLogout();
+	}
 }

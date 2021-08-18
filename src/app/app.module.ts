@@ -13,6 +13,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { KatexModule } from 'ng-katex';
 
+//Firebase Modules
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+
 //NgModule Config Imports
 import { PERSISTENCE } from '@angular/fire/auth';
 
@@ -44,7 +50,10 @@ import { FavoritesService } from './services/favorites.service';
 		FormsModule,
 		MatToolbarModule,
 		MatIconModule,
-		MatMenuModule
+		MatMenuModule,
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFireAuthModule,
+		AngularFirestoreModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

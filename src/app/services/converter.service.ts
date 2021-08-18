@@ -61,7 +61,7 @@ export class ConverterService {
     let outResult = Number(inVal) * convertFactor;
     console.log('outResult :>> ', outResult);
     return {
-      unitSet: 1,
+      unitSet: 0,
       inputVal: inVal,
       inputUnit: inUnit,
       outputVal: outResult,

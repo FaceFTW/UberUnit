@@ -1,7 +1,15 @@
-@import '~katex/dist/katex.css';
+@import "~katex/dist/katex.css";
 
-input[type=number] {
-  height: 50px;
-  width: 100%;
-  font-size: 48px;
+input[type="number"] {
+	height: 50px;
+	width: 100%;
+	font-size: 44px;
+
+	-moz-appearance: [textfield];
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }

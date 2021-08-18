@@ -1,11 +1,13 @@
 //Base Imports
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 //External Dependencies
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 import { KatexModule } from 'ng-katex';
 
 //NgModule Config Imports
@@ -23,20 +25,22 @@ import { HistoryService } from './services/history.service';
 import { FavoritesService } from './services/favorites.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HistoryComponent,
-    FavoritesComponent,
-    ConvertFormComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    KatexModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+	declarations: [
+		AppComponent,
+		HistoryComponent,
+		FavoritesComponent,
+		ConvertFormComponent,
+	],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		ReactiveFormsModule,
+		MatSelectModule,
+		KatexModule,
+		MatInputModule,
+		FormsModule
+	],
+	providers: [],
+	bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -35,19 +35,19 @@ export class HistoryService {
   //Adds an item to the history
   public addHistoryItem(hStruct: HistoryStruct): void {
     //Create the latex if it isn't existent yet
-    if (!hStruct.latexString) {
-      this.makeLatex(hStruct);
-    }
+    // if (!hStruct.latexString) {
+    //   this.makeLatex(hStruct);
+    // }
   }
 
   //Object mutability is kinda nice here
-  private makeLatex(hStruct: HistoryStruct): void {
-    let outString = '';
-    outString += hStruct.inputVal + ' ';
-    outString += unitSetList[hStruct.unitSet].list[hStruct.inputUnit].latex;
-    outString += ' = ';
-    outString += hStruct.outputVal + ' ';
-    outString += unitSetList[hStruct.unitSet].list[hStruct.outputUnit].latex;
-    hStruct.latexString = outString;
-  }
+  // private makeLatex(hStruct: HistoryStruct): void {
+  //   let outString = '';
+  //   outString += hStruct.inputVal + ' ';
+  //   outString += unitSetList[hStruct.unitSet].list[hStruct.inputUnit].latex;
+  //   outString += ' = ';
+  //   outString += hStruct.outputVal + ' ';
+  //   outString += unitSetList[hStruct.unitSet].list[hStruct.outputUnit].latex;
+  //   hStruct.latexString = outString;
+  // }
 }

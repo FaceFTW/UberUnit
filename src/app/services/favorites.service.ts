@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
 	AngularFirestore,
 	AngularFirestoreCollection,
+	QuerySnapshot,
 } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import firebase from 'firebase/app';
@@ -17,6 +18,7 @@ export const CREATED_DATE_FIELD = 'createdDate';
 export const FIRESTORE_COLLECTION = 'favorites';
 
 export interface Favorite {
+	id: string | null;
 	[UID_FIELD]: string;
 	[UNIT_SET_FIELD]: number;
 	[UNIT_FROM_FIELD]: number;
@@ -28,18 +30,10 @@ export interface Favorite {
 	providedIn: 'root',
 })
 export class FavoritesService {
-	private favoritesCollection: AngularFirestoreCollection<Favorite>;
-	favorites$: Observable<Favorite[]>;
+	favoritesCollection: AngularFirestoreCollection<Favorite>;
 
 	constructor(private auth: AuthService, private firestore: AngularFirestore) {
 		this.favoritesCollection = firestore.collection(FIRESTORE_COLLECTION);
-		this.favorites$ = firestore
-			.collection<Favorite>('favorites', (ref) =>
-				ref
-					.orderBy(CREATED_DATE_FIELD, 'desc')
-					.where(FIELD_UID, '==', auth.userUid)
-			)
-			.valueChanges();
 	}
 
 	addFavorite(item: Favorite) {
@@ -52,22 +46,4 @@ export class FavoritesService {
 		}
 	}
 
-	async getInitialQuery() {
-		let favArray: Favorite[] = [];
-		const initQuery = await this.firestore
-			.collection<Favorite>('favorites', (ref) =>
-				ref
-					.orderBy(CREATED_DATE_FIELD, 'desc')
-					.where(FIELD_UID, '==', this.auth.userUid)
-			)
-			.get()
-			.toPromise()
-			.then((queryResult) => {
-				queryResult.forEach((item) => {
-					favArray.push(item.data());
-				});
-			});
-
-			return favArray;
-	}
 }

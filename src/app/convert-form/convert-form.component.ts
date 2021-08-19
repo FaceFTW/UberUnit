@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Observable,of } from 'rxjs';
+import { of } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import {
 	ConverterService,
-	lengthConvMatrix,
 } from '../services/converter.service';
 import {
 	Favorite,
@@ -64,7 +62,6 @@ export class ConvertFormComponent implements OnInit {
 	input2Unit: number = 1;
 
 	favoritesList: Favorite[] = [];
-	favList$: Observable<Favorite[]>;
 	historyList: HistoryStruct[] = [];
 
 	//Constant References
@@ -77,27 +74,30 @@ export class ConvertFormComponent implements OnInit {
 		private histServ: HistoryService,
 		private auth: AuthService
 	) {
-		this.favServ.favorites$.subscribe((favList) => {
-			this.favoritesList = favList;
-		});
-		this.favList$ = favServ.favorites$;
+		this.favServ.favoritesCollection
+			.valueChanges({
+				idField: 'id',
+			})
+			.subscribe((list) => {
+				this.favoritesList = [];
+				list.forEach((item) => {
+					if (item[UID_FIELD] == this.auth.userUid) {
+						this.favoritesList.push(item);
+					}
+				});
+			});
 
 		this.histServ.history$.subscribe((histList) => {
 			this.historyList = histList;
 		});
+
+		//Some ngModel stuff to properly update the selectors
+		of(this.currentUnitSet).subscribe((val) => {});
 	}
 
-	ngOnInit(): void {
-		this.favServ.getInitialQuery().then((list) => {
-			this.favoritesList = list;
-		});
-
-		this.favList$ = of(this.favoritesList);
-	}
+	ngOnInit(): void {}
 
 	doConvert() {
-		console.log('doConvert Call');
-		//pass inputs to the converter service, get the desired results back
 		let convResult;
 		switch (this.currentUnitSet) {
 			case 0:
@@ -126,6 +126,7 @@ export class ConvertFormComponent implements OnInit {
 
 	addFavorite() {
 		let favItem: Favorite = {
+			id: null,
 			[UID_FIELD]: this.auth.userUid,
 
 			unitSet: this.currentUnitSet,
@@ -138,8 +139,10 @@ export class ConvertFormComponent implements OnInit {
 
 	//Favorites Functionality
 
-	invokeDelete(id: string) {
-		this.favServ.deleteFavorite(id);
+	invokeFavDelete(id: string | null) {
+		if (id) {
+			this.favServ.deleteFavorite(id);
+		}
 	}
 
 	changetoFavorite(fav: Favorite) {

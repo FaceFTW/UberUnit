@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
+import { AuthService } from './auth.service';
+import {
+	FIELD_CREATEDTIME,
+	FIELD_INPUT_UNIT,
+	FIELD_INPUT_VAL,
+	FIELD_OUTPUT_UNIT,
+	FIELD_OUTPUT_VAL,
+	FIELD_UID,
+	FIELD_UNIT_SET,
+	HistoryService,
+} from './history.service';
 
-export interface ConvResult {
-	unitSet: number;
-	inputVal: number;
-	inputUnit: number;
-	outputUnit: number;
-	outputVal: number;
-}
+import firebase from 'firebase/app';
 
 //lengthConvMatrix[fromUnit][toUnit]
 export const lengthConvMatrix: number[][] = [
@@ -49,24 +54,28 @@ export const lengthConvMatrix: number[][] = [
 	providedIn: 'root',
 })
 export class ConverterService {
-
-	constructor() {}
+	constructor(private auth: AuthService, private hist: HistoryService) {}
 
 	public doLengthConversion(
 		inVal: number,
 		inUnit: number,
 		outUnit: number
-	): ConvResult {
+	): number {
 		//Luckily, we have a nice programmed array for this
 		let convertFactor = lengthConvMatrix[inUnit][outUnit];
 		let outResult = Number(inVal) * convertFactor;
 		console.log('outResult :>> ', outResult);
-		return {
-			unitSet: 0,
-			inputVal: inVal,
-			inputUnit: inUnit,
-			outputVal: outResult,
-			outputUnit: outUnit,
-		};
+		this.hist.addHistoryItem({
+			id: null,
+			[FIELD_UNIT_SET]: 0,
+			[FIELD_INPUT_VAL]: inVal,
+			[FIELD_INPUT_UNIT]: inUnit,
+			[FIELD_OUTPUT_VAL]: outResult,
+			[FIELD_OUTPUT_UNIT]: outUnit,
+			[FIELD_UID]: this.auth.userUid,
+			[FIELD_CREATEDTIME]: new firebase.firestore.Timestamp(
+				+new Date() / 1000,	0),
+		});
+		return outResult;
 	}
 }

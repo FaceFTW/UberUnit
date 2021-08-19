@@ -11,27 +11,22 @@ input::-webkit-outer-spin-button {
 	margin: 0;
 }
 
-#convertHeader {
-	 display: flex;
-	// margin: auto;
+#headertext {
+	display: flex;
 	justify-content: center;
+	padding-top: 30px;
+	align-content: center;
 }
 
-#convertHeader > h1 {
-	display: inline;
-	margin-left: auto;
-	margin-right: auto;
+h1 {
+	width: 100%;
 }
 
-#convertHeader > ng-select {
-	display: inline;
-	// padding-top: 40px;
+
+#unitSelectHeader > ng-select {
 	font-size: 2rem;
-	// padding-left: 16px;
-	width: 35%;
+	width: 45%;
 }
-
-
 
 ng-select#unitSelect .katex.katex-html {
 	font-size: 2.5rem !important;
@@ -51,4 +46,14 @@ div#smallConvButton > button {
 
 mat-form-field#inputField {
 	width: 100%;
+}
+
+#history,
+#favorites {
+	min-height: 25%;
+}
+
+#divider{
+	border: 2.5px solid #262626;
+	background-color: #262626;
 }

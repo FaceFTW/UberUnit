@@ -3,12 +3,13 @@
 		<div class="col-sm-12 col-xl-6" id="convert">
 			<!--CONVERT SECTION-->
 			<div class="row py-2">
-				<div id="convertHeader">
+				<div class="row d-flex justify-content-center w-100" id="headertext">
 					<h2>I want to convert measurements of</h2>
+				</div>
+				<div class="row justify-content-center" id="unitSelectHeader">
 					<ng-select id="unitSelect" [multiple]="false" [clearable]="false" [(ngModel)]="currentUnitSet">
 						<ng-option *ngFor="let set of internalUnitSetList" [value]="set.id">{{ set.val }}</ng-option>
 					</ng-select>
-
 				</div>
 				<div class="row py-2">
 					<div class="col-8">
@@ -65,25 +66,38 @@
 			<div class="col-sm-12 col-lg-6 py-2" id="history">
 				<!--HISTORY SECTION-->
 				<h1>History</h1>
+				<div *ngFor="let hist of historyList; index as i">
+					<button mat-icon-button (click)="invokeHistDelete(hist.id)">
+						<mat-icon>delete</mat-icon>
+					</button>
+					<span (click)="changetoHistory(hist)">
+						<ng-katex [equation]="hist.inputVal.toString() +
+							 internalUnitSetList[hist.unitSet].list[hist.inputUnit].latex +
+							 arrowString +
+							 hist.outputVal.toString()+
+							 internalUnitSetList[hist.unitSet].list[hist.outputUnit].latex">
+						</ng-katex>
+					</span>
+					<hr>
+				</div>
 			</div>
+			<hr id="divider">
 			<div class="col-sm-12 col-lg-6" id="favorites">
 				<!--FAVORITES SECTION-->
 				<h1>Favorites</h1>
 				<div>
-					<ul>
-						<div *ngFor="let fav of favoritesList; index as i">
-							<button mat-icon-button (click)="invokeFavDelete(fav.id)">
-								<mat-icon>delete</mat-icon>
-							</button>
-							<span (click)="changetoFavorite(fav)">
-								{{internalUnitSetList[fav.unitSet].val}}:&nbsp;
-								<ng-katex
-									[equation]="internalUnitSetList[fav.unitSet].list[fav.fromUnit].latex + arrowString +  internalUnitSetList[fav.unitSet].list[fav.toUnit].latex">
-								</ng-katex>
-							</span>
-							<hr>
-						</div>
-					</ul>
+					<div *ngFor="let fav of favoritesList; index as i">
+						<button mat-icon-button (click)="invokeFavDelete(fav.id)">
+							<mat-icon>delete</mat-icon>
+						</button>
+						<span (click)="changetoFavorite(fav)">
+							{{internalUnitSetList[fav.unitSet].val}}:&nbsp;
+							<ng-katex
+								[equation]="internalUnitSetList[fav.unitSet].list[fav.fromUnit].latex + arrowString +  internalUnitSetList[fav.unitSet].list[fav.toUnit].latex">
+							</ng-katex>
+						</span>
+						<hr>
+					</div>
 				</div>
 			</div>
 		</div>

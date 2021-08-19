@@ -21,12 +21,6 @@ export class AuthService {
 		});
 	}
 
-	// doSignInLinkOAuth() {
-	// 	if (this.isAnon) {
-	// 		firebase.auth.;
-	// 	}
-	// }
-
 	doSignInAnon() {
 		this.fireauth.signInAnonymously().catch((err) => {
 			if (err) {

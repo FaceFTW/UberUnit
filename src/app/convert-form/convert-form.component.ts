@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import {
-	ConverterService,
-} from '../services/converter.service';
+import { ConverterService } from '../services/converter.service';
 import {
 	Favorite,
 	FavoritesService,
@@ -12,7 +9,15 @@ import {
 	UNIT_SET_FIELD,
 	UNIT_TO_FIELD,
 } from '../services/favorites.service';
-import { HistoryService, HistoryStruct } from '../services/history.service';
+import {
+	FIELD_INPUT_UNIT,
+	FIELD_INPUT_VAL,
+	FIELD_OUTPUT_UNIT,
+	FIELD_OUTPUT_VAL,
+	FIELD_UNIT_SET,
+	HistoryService,
+	HistoryStruct,
+} from '../services/history.service';
 import firebase from 'firebase/app';
 
 export interface Unit {
@@ -87,13 +92,21 @@ export class ConvertFormComponent implements OnInit {
 				});
 			});
 
-		this.histServ.history$.subscribe((histList) => {
-			this.historyList = histList;
-		});
-
-		//Some ngModel stuff to properly update the selectors
-		of(this.currentUnitSet).subscribe((val) => {});
+		this.histServ.historyCollection
+			.valueChanges({
+				idField: 'id',
+			})
+			.subscribe((list) => {
+				this.historyList = [];
+				list.forEach((item) => {
+					if (item[UID_FIELD] == this.auth.userUid) {
+						this.historyList.push(item);
+					}
+				});
+			});
 	}
+
+	//Some ngModel stuff to properly update the selectors
 
 	ngOnInit(): void {}
 
@@ -111,7 +124,7 @@ export class ConvertFormComponent implements OnInit {
 		}
 
 		if (convResult) {
-			this.input2 = convResult.outputVal;
+			this.input2 = convResult;
 		}
 	}
 
@@ -145,9 +158,23 @@ export class ConvertFormComponent implements OnInit {
 		}
 	}
 
+	invokeHistDelete(id: string | null) {
+		if (id) {
+			this.histServ.deleteHistoryItem(id);
+		}
+	}
+
 	changetoFavorite(fav: Favorite) {
 		this.currentUnitSet = fav[UNIT_SET_FIELD];
 		this.input1Unit = fav[UNIT_FROM_FIELD];
 		this.input2Unit = fav[UNIT_TO_FIELD];
+	}
+
+	changetoHistory(hist: HistoryStruct) {
+		this.currentUnitSet = hist[FIELD_UNIT_SET];
+		this.input1 = hist[FIELD_INPUT_VAL];
+		this.input1Unit = hist[FIELD_INPUT_UNIT];
+		this.input2 = hist[FIELD_OUTPUT_VAL];
+		this.input2 = hist[FIELD_OUTPUT_UNIT];
 	}
 }

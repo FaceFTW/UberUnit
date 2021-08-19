@@ -2,6 +2,7 @@
 <mat-toolbar color="primary">
 	<span>UberUnit</span>
 	<span class="example-spacer"></span>
+	<mat-icon *ngIf="!getIsAnon()">face</mat-icon>
 	<button mat-icon-button class="example-icon" color="" [matMenuTriggerFor]="authMenu"
 		aria-label="Example icon-button with menu icon">
 		<mat-icon>menu</mat-icon>
@@ -13,7 +14,7 @@
 		<mat-icon>login</mat-icon>&nbsp;Sign In with Google
 	</button>
 	<button mat-menu-item (click)="doLogout()">
-		<mat-icon></mat-icon>Sign Out/New Anonymous Account
+		<mat-icon>logout</mat-icon>Sign Out/New Anonymous Account
 	</button>
 </mat-menu>
 

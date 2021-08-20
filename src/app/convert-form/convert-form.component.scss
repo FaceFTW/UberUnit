@@ -1,10 +1,7 @@
-@import "~katex/dist/katex.css";
-
 input[type="number"] {
-	height: 50px;
+	height: 2.5rem;
 	width: 100%;
-	font-size: 44px;
-
+	font-size: 2.5rem;
 	-moz-appearance: [textfield];
 }
 
@@ -14,13 +11,49 @@ input::-webkit-outer-spin-button {
 	margin: 0;
 }
 
-#convertHeader{
+#headertext {
 	display: flex;
+	justify-content: center;
+	padding-top: 30px;
+	align-content: center;
 }
 
-#convertHeader > h1{
-	display:inline;
-	overflow: hidden;
-	white-space: nowrap;
-	padding-top:38px;
+h1 {
+	padding-top: 30px;
+	width: 100%;
+}
+
+#unitSelectHeader > ng-select {
+	font-size: 2rem;
+	width: 45%;
+}
+
+ng-select#unitSelect .katex.katex-html {
+	font-size: 2.5rem !important;
+}
+
+div#largeConvButton,
+div#smallConvButton {
+	height: 48px;
+}
+
+div#largeConvButton > button,
+div#smallConvButton > button {
+	width: 100%;
+	height: 100%;
+	font-size: 48px;
+}
+
+mat-form-field#inputField {
+	width: 100%;
+}
+
+#history,
+#favorites {
+	min-height: 25%;
+}
+
+#divider {
+	border: 2.5px solid #262626;
+	background-color: #262626;
 }

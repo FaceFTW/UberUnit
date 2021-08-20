@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
 	userUid: string = '';
 	isAnon: boolean = false;
-	isAuth:boolean = false;
+	isAuth: boolean = false;
 
 	constructor(private fireauth: AngularFireAuth) {
 		this.fireauth.user.subscribe((user) => {
@@ -20,12 +20,6 @@ export class AuthService {
 			}
 		});
 	}
-
-	// doSignInLinkOAuth() {
-	// 	if (this.isAnon) {
-	// 		firebase.auth.;
-	// 	}
-	// }
 
 	doSignInAnon() {
 		this.fireauth.signInAnonymously().catch((err) => {
@@ -51,7 +45,8 @@ export class AuthService {
 			.then(() => {
 				console.log('fireauth.user :>> ', this.fireauth.user);
 				this.isAuth = false;
-			}).then(()=>{
+			})
+			.then(() => {
 				this.fireauth.signInAnonymously();
 			})
 			.catch((err) => {

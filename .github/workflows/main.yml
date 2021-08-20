@@ -32,6 +32,14 @@ jobs:
       - name: Install Project Tools/Dependencies
         run: npm install
 
+      - name: Populate Environment Secrets
+        env:
+           ENV_PROD_TS: ${{ secrets.ENV_PROD_TS }}
+           ENV_PROD_PATH: "src/environments/environments.prod.ts"
+        run:|
+          touch src/environment/environment.prod.ts
+          echo $ENV_PROD_TS | base64 --decode >> $ENV_PROD_PATH
+
       - name: Invoke Angular Builder
         run: npm run build
 

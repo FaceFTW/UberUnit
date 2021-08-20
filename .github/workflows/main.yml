@@ -36,7 +36,7 @@ jobs:
         env:
            ENV_PROD_TS: ${{ secrets.ENV_PROD_TS }}
            ENV_PROD_PATH: "src/environments/environments.prod.ts"
-        run:|
+        run: |
           touch src/environment/environment.prod.ts
           echo $ENV_PROD_TS | base64 --decode >> $ENV_PROD_PATH
 

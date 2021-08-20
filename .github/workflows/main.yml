@@ -36,8 +36,7 @@ jobs:
         env:
            ENV_PROD_TS: ${{ secrets.ENV_PROD_TS }}
            ENV_PROD_PATH: "src/environments/environments.prod.ts"
-        run: |
-          touch src/environment/environment.prod.ts
+        run:
           echo $ENV_PROD_TS | base64 --decode >> $ENV_PROD_PATH
 
       - name: Invoke Angular Builder

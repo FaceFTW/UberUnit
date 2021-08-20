@@ -3,6 +3,8 @@
 AngularJS Unit Converter/Formula Solver Web Applicaton using Firebase.
 This is a final project for Rose-Hulman CSSE280, written by myself.
 
+***Check out the documentation and demonstration I submitted for this class here =>[Rose-Hulman Project Vault](https://rosehulmanprojectvault.org/project/-Mcae1Wvtehq-J4saaLz)***
+
 ## Libraries
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.2.

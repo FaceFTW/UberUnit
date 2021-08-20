@@ -35,7 +35,7 @@ jobs:
       - name: Populate Environment Secrets
         env:
            ENV_PROD_TS: ${{ secrets.ENV_PROD_TS }}
-           ENV_PROD_PATH: src/environments/environments.prod.ts
+           ENV_PROD_PATH: /home/runner/work/UberUnit/UberUnit/src/environments/environments.prod.ts
         run: |
           cd ${{ env.GITHUB_WORKSPACE }}
           echo $ENV_PROD_TS | base64 --decode > $ENV_PROD_PATH

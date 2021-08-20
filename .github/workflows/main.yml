@@ -35,7 +35,7 @@ jobs:
            ENV_PROD_TS: ${{ secrets.ENV_PROD_TS }}
            ENV_PROD_PATH: ${{ github.workspace }}/src/environments/environment.prod.ts
         run: |
-          '> $ENV_PROD_PATH'
+          'bash "> $ENV_PROD_PATH"'
           'echo "$ENV_PROD_TS" | base64 --decode > "$ENV_PROD_PATH"'
 
       - name: Install Project Tools/Dependencies

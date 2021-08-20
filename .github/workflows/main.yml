@@ -29,16 +29,17 @@ jobs:
         with:
           node-version: '16.6.2'
 
-      - name: Install Project Tools/Dependencies
-        run: npm install
-
       - name: Populate Environment Secrets
         shell: bash
         env:
            ENV_PROD_TS: ${{ secrets.ENV_PROD_TS }}
            ENV_PROD_PATH: ${{ github.workspace}}/src/environments/environment.prod.ts
-        run: 
+        run: |
+          'echo " " > "$ENV_PROD_PATH"'
           'echo "$ENV_PROD_TS" | base64 --decode > "$ENV_PROD_PATH"'
+
+      - name: Install Project Tools/Dependencies
+        run: npm install
 
       - name: Invoke Angular Builder
         run: npm run build

@@ -7,7 +7,7 @@
 					<h2>I want to convert measurements of</h2>
 				</div>
 				<div class="row justify-content-center" id="unitSelectHeader">
-					<ng-select id="unitSelect" [multiple]="false" [clearable]="false" [(ngModel)]="currentUnitSet">
+					<ng-select id="unitSelect" [multiple]="false" [clearable]="false" [(ngModel)]="currentUnitSet" (ngModelChange)="resetUnitSelectors()">
 						<ng-option *ngFor="let set of internalUnitSetList" [value]="set.id">{{ set.val }}</ng-option>
 					</ng-select>
 				</div>
@@ -81,7 +81,7 @@
 					<hr>
 				</div>
 			</div>
-			<hr id="divider">
+			<hr class="d-lg-none" id="divider">
 			<div class="col-sm-12 col-lg-6" id="favorites">
 				<!--FAVORITES SECTION-->
 				<h1>Favorites</h1>

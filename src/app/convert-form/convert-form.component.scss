@@ -19,9 +19,9 @@ input::-webkit-outer-spin-button {
 }
 
 h1 {
+	padding-top: 30px;
 	width: 100%;
 }
-
 
 #unitSelectHeader > ng-select {
 	font-size: 2rem;
@@ -53,7 +53,7 @@ mat-form-field#inputField {
 	min-height: 25%;
 }
 
-#divider{
+#divider {
 	border: 2.5px solid #262626;
 	background-color: #262626;
 }

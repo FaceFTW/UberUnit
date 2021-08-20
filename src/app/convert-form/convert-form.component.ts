@@ -38,21 +38,52 @@ export const lengthUnits: Unit[] = [
 	{ id: 3, val: 'millimeters', latex: 'mm' },
 	{ id: 4, val: 'micrometers', latex: '\\mu m' },
 	{ id: 5, val: 'nanometers', latex: 'nm' },
-	{ id: 6, val: 'inches', latex: 'in' },
-	{ id: 7, val: 'feet', latex: 'ft' },
+	{ id: 6, val: 'miles', latex: 'mi' },
+	{ id: 7, val: 'nautical_miles', latex: 'sm' },
 	{ id: 8, val: 'yards', latex: 'yd' },
-	{ id: 9, val: 'miles', latex: 'mi' },
-	{ id: 10, val: 'nautical_miles', latex: 'sm' },
+	{ id: 9, val: 'feet', latex: 'ft' },
+	{ id: 10, val: 'inches', latex: 'in' },
 ];
 
 export const areaUnits: any = [
-	{ id: 0, val: 'meterssqu', latex: 'm^2' },
-	{ id: 1, val: 'cmeterssqu', latex: 'cm^2' },
+	{ id: 0, val: 'kmsqu', latex: 'km^2' },
+	{ id: 1, val: 'meterssqu', latex: 'm^2' },
+	{ id: 2, val: 'milessqu', latex: 'mi^2' },
+	{ id: 3, val: 'yardsqu', latex: 'yd^2' },
+	{ id: 4, val: 'feetsqu', latex: 'ft^2' },
+	{ id: 5, val: 'inchsqu', latex: 'in^2' },
+	{ id: 6, val: 'hectare', latex: 'ha' },
+	{ id: 7, val: 'acre', latex: 'ac' },
+];
+
+export const speedUnits: Unit[] = [
+	{ id: 0, val: 'mph', latex: 'mph' },
+	{ id: 1, val: 'feetsecs', latex: 'ft/s' },
+	{ id: 2, val: 'kmhours', latex: 'km/h' },
+	{ id: 3, val: 'meterssecs', latex: 'm/s' },
+	{ id: 4, val: 'knots', latex: 'kn' },
+];
+
+export const pressureUnits: Unit[] = [
+	{ id: 0, val: 'bar', latex: 'bar' },
+	{ id: 1, val: 'pascal', latex: 'pa' },
+	{ id: 2, val: 'psi', latex: 'psi' },
+	{ id: 3, val: 'atm', latex: 'atm' },
+	{ id: 4, val: 'torr', latex: 'torr' },
+];
+
+export const tempUnits: Unit[] = [
+	{ id: 0, val: 'farenheit', latex: '\\degree F' },
+	{ id: 1, val: 'celcesius', latex: '\\degree C' },
+	{ id: 2, val: 'kelvin', latex: 'K' },
 ];
 
 export const unitSetList: UnitSet[] = [
 	{ id: 0, val: 'Length', list: lengthUnits },
 	{ id: 1, val: 'Area', list: areaUnits },
+	{ id: 2, val: 'Speed', list: speedUnits },
+	{ id: 3, val: 'Pressure', list: pressureUnits },
+	{ id: 4, val: 'Temperature', list: tempUnits },
 ];
 @Component({
 	selector: 'app-convert-form',
@@ -121,6 +152,38 @@ export class ConvertFormComponent implements OnInit {
 				);
 				console.log('convResult :>> ', convResult);
 				break;
+			case 1:
+				convResult = this.convServ.doAreaConversion(
+					this.input1,
+					this.input1Unit,
+					this.input2Unit
+				);
+				console.log('convResult :>> ', convResult);
+				break;
+			case 2:
+				convResult = this.convServ.doSpeedConversion(
+					this.input1,
+					this.input1Unit,
+					this.input2Unit
+				);
+				console.log('convResult :>> ', convResult);
+				break;
+			case 3:
+				convResult = this.convServ.doPressureConversion(
+					this.input1,
+					this.input1Unit,
+					this.input2Unit
+				);
+				console.log('convResult :>> ', convResult);
+				break;
+			case 4:
+				convResult = this.convServ.doTempConversion(
+					this.input1,
+					this.input1Unit,
+					this.input2Unit
+				);
+				console.log('convResult :>> ', convResult);
+				break;
 		}
 
 		if (convResult) {
@@ -176,5 +239,12 @@ export class ConvertFormComponent implements OnInit {
 		this.input1Unit = hist[FIELD_INPUT_UNIT];
 		this.input2 = hist[FIELD_OUTPUT_VAL];
 		this.input2 = hist[FIELD_OUTPUT_UNIT];
+	}
+
+	resetUnitSelectors(){
+		this.input1Unit = 0;
+		this.input2Unit = 1;
+		this.input1 = 0;
+		this.input2 = 0;
 	}
 }

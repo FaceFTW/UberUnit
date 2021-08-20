@@ -36,7 +36,7 @@ jobs:
         shell: bash
         env:
            ENV_PROD_TS: ${{ secrets.ENV_PROD_TS }}
-           ENV_PROD_PATH: /home/runner/work/UberUnit/UberUnit/src/environments/environment.prod.ts
+           ENV_PROD_PATH: ${{ github.workspace}}/src/environments/environment.prod.ts
         run: 
           'echo "$ENV_PROD_TS" | base64 --decode > "$ENV_PROD_PATH"'
 

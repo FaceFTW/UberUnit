@@ -27,7 +27,7 @@ UberUnit has the following features planned:
 
 ## Development server
 **NOTE**
-Firebase functionality requires you to generate some keys and place them in the `src/environments/environment.ts` for API access. I have intentionally excluded them for security purposes, so you have to make your own Firebase app if you want to test the full functionality
+Firebase functionality requires you to generate some keys and place them in the `src/environments/environment.ts` for API access. I have intentionally excluded them for security purposes, so you have to make your own Firebase app if you want to test the full functionality using your own Firebase instance and/or locally on your own machine
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 

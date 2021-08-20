@@ -35,7 +35,7 @@ jobs:
       - name: Populate Environment Secrets
         env:
            ENV_PROD_TS: ${{ secrets.ENV_PROD_TS }}
-           ENV_PROD_PATH: $GITHUB_WORKSPACE/src/environments/environments.prod.ts
+           ENV_PROD_PATH: ${{ env.GITHUB_WORKSPACE }}/src/environments/environments.prod.ts
         run:
           echo $ENV_PROD_TS | base64 --decode > $ENV_PROD_PATH
 
